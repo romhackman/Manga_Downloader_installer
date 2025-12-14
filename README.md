@@ -1,5 +1,6 @@
 # Manga Downloader 🐉📚
 
+![Logo Manga Downloader](https://github.com/romhackman/Manga/blob/main/logo.png?raw=true)
 [![Python](https://img.shields.io/badge/python-3.10-blue)](https://www.python.org/) 
 [![Licence](https://img.shields.io/badge/licence-MIT-green)](https://opensource.org/licenses/MIT)
 
