@@ -1,63 +1,77 @@
 import os
-import platform
 import urllib.request
 import zipfile
 import shutil
 import subprocess
+import tkinter as tk
+from tkinter import filedialog, messagebox
 
-# URL du projet GitHub (ZIP)
+# URL du projet GitHub
 URL = "https://github.com/romhackman/Manga/archive/refs/heads/main.zip"
 
-# Dossiers utilisateur
-HOME = os.path.expanduser("~")
-DOWNLOADS = os.path.join(HOME, "Téléchargements")
-DOCUMENTS = os.path.join(HOME, "Documents")
+def download_and_extract():
+    # Demander le dossier d'extraction
+    extract_folder = filedialog.askdirectory(title="Choisissez le dossier où extraire Manga")
+    if not extract_folder:
+        messagebox.showwarning("Avertissement", "Aucun dossier sélectionné. Abandon.")
+        return
 
-ZIP_PATH = os.path.join(DOWNLOADS, "Manga.zip")
-EXTRACT_PATH = os.path.join(DOCUMENTS, "Manga-main")
-FINAL_PATH = os.path.join(DOCUMENTS, "Manga")
+    zip_path = os.path.join(extract_folder, "Manga.zip")
+    extract_path = os.path.join(extract_folder, "Manga-main")
+    final_path = os.path.join(extract_folder, "Manga")
 
-print("📥 Téléchargement du programme Manga...")
+    try:
+        # Télécharger le ZIP
+        status_label.config(text="📥 Téléchargement en cours...")
+        root.update()
+        urllib.request.urlretrieve(URL, zip_path)
 
-# Télécharger le ZIP
-urllib.request.urlretrieve(URL, ZIP_PATH)
+        # Extraire le ZIP
+        status_label.config(text="📦 Extraction en cours...")
+        root.update()
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(extract_folder)
 
-print("📦 Extraction du ZIP...")
+        # Supprimer le ZIP après extraction
+        if os.path.exists(zip_path):
+            os.remove(zip_path)
 
-# Extraire le ZIP
-with zipfile.ZipFile(ZIP_PATH, 'r') as zip_ref:
-    zip_ref.extractall(DOCUMENTS)
+        # Supprimer ancien dossier Manga si existant
+        if os.path.exists(final_path):
+            shutil.rmtree(final_path)
 
-# Supprimer le ZIP après extraction
-if os.path.exists(ZIP_PATH):
-    os.remove(ZIP_PATH)
-    print("🗑️ ZIP supprimé après extraction")
+        # Renommer le dossier
+        os.rename(extract_path, final_path)
 
-# Supprimer ancien dossier Manga si existant
-if os.path.exists(FINAL_PATH):
-    shutil.rmtree(FINAL_PATH)
+        status_label.config(text="✅ Extraction terminée")
 
-# Renommer le dossier
-os.rename(EXTRACT_PATH, FINAL_PATH)
+        # Demander le système
+        system_choice = messagebox.askquestion("Système", "Utilisez-vous Windows ? (Sinon Linux)")
 
-print("✅ Installation terminée")
+        # Lancer le setup approprié
+        os.chdir(final_path)
+        if system_choice == "yes":
+            status_label.config(text="🪟 Lancement de setup_win.py...")
+            root.update()
+            subprocess.run(["python", "setup_win.py"])
+        else:
+            status_label.config(text="🐧 Lancement de setup_linux.py...")
+            root.update()
+            subprocess.run(["python3", "setup_linux.py"])
 
-# Choix du système
-print("\nQuel est ton système ?")
-print("1 - Windows")
-print("2 - Linux")
+    except Exception as e:
+        messagebox.showerror("Erreur", str(e))
 
-choice = input("Choix (1 ou 2) : ").strip()
+# Interface Tkinter
+root = tk.Tk()
+root.title("Installateur Manga")
+root.geometry("400x200")
 
-os.chdir(FINAL_PATH)
+tk.Label(root, text="Installer Manga depuis GitHub", font=("Arial", 14)).pack(pady=10)
 
-if choice == "1":
-    print("🪟 Lancement de setup_win.py...")
-    subprocess.run(["python", "setup_win.py"])
+status_label = tk.Label(root, text="Cliquez sur 'Télécharger et Installer'", fg="blue")
+status_label.pack(pady=10)
 
-elif choice == "2":
-    print("🐧 Lancement de setup_linux.py...")
-    subprocess.run(["python3", "setup_linux.py"])
+tk.Button(root, text="Télécharger et Installer", command=download_and_extract, width=30, height=2).pack(pady=20)
 
-else:
-    print("❌ Choix invalide")
+root.mainloop()
