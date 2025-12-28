@@ -28,6 +28,11 @@ print("📦 Extraction du ZIP...")
 with zipfile.ZipFile(ZIP_PATH, 'r') as zip_ref:
     zip_ref.extractall(DOCUMENTS)
 
+# Supprimer le ZIP après extraction
+if os.path.exists(ZIP_PATH):
+    os.remove(ZIP_PATH)
+    print("🗑️ ZIP supprimé après extraction")
+
 # Supprimer ancien dossier Manga si existant
 if os.path.exists(FINAL_PATH):
     shutil.rmtree(FINAL_PATH)
