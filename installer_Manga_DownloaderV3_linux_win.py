@@ -54,10 +54,12 @@ def download_and_extract():
             status_label.config(text="🪟 Lancement de setup_win.py...")
             root.update()
             subprocess.run(["python", "setup_win.py"])
+            messagebox.showinfo("Terminé", "Installation terminée ! Pour lancer l'application, utilisez : Launcher.vbs")
         else:
             status_label.config(text="🐧 Lancement de setup_linux.py...")
             root.update()
             subprocess.run(["python3", "setup_linux.py"])
+            messagebox.showinfo("Terminé", "Installation terminée ! Pour lancer l'application, utilisez : launch.sh")
 
     except Exception as e:
         messagebox.showerror("Erreur", str(e))
@@ -65,7 +67,7 @@ def download_and_extract():
 # Interface Tkinter
 root = tk.Tk()
 root.title("Installateur Manga")
-root.geometry("400x200")
+root.geometry("450x200")
 
 tk.Label(root, text="Installer Manga depuis GitHub", font=("Arial", 14)).pack(pady=10)
 
