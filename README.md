@@ -1,11 +1,12 @@
-# Manga Downloader V3🦊📚
+# Manga Downloader V4 🧩📚
 
-![Logo Manga Downloader](https://github.com/romhackman/Manga/raw/main/mangadex/logo.png)
-[![Python](https://img.shields.io/badge/python-3.10-blue)](https://www.python.org/) 
-[![Licence](https://img.shields.io/badge/licence-MIT-green)](https://opensource.org/licenses/MIT)
+![Logo Manga Downloader](https://github.com/romhackman/Manga/blob/main/plugins/logo.png)
 
 **Bonjour, je suis Romh@ckman !**  
-Voici une application Python **open-source** pour **télécharger facilement les meilleurs scans de mangas** depuis [Anime Sama](https://anime-sama.eu), totalement gratuitement.
+Je développe une application Python open-source pour **télécharger facilement les meilleurs scans de mangas** depuis [Anime Sama](https://anime-sama.eu) et [MangaDex](https://mangadex.org), gratuitement !
+
+[![Python](https://img.shields.io/badge/python-3.10-blue)](https://www.python.org/) 
+[![Licence](https://img.shields.io/badge/licence-MIT-green)](https://opensource.org/licenses/MIT)
 
 ---
 
