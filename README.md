@@ -1,6 +1,4 @@
-Parfait ! Voici ton README entièrement traduit et adapté en **anglais**, avec les corrections Markdown et les liens fonctionnels :
 
----
 
 # Manga Downloader V5.1 🌐📚
 
@@ -63,8 +61,3 @@ The code is provided “as is” under the **MIT License**. The author provides 
 
 This project is under the **[MIT License](LICENSE)**.
 
----
-
-If you want, I can also make a **fully professional English version** with a clickable table of contents, enhanced badges, and GitHub-style formatting so it looks super polished on the repository page.
-
-Do you want me to do that next?
